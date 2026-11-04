@@ -1,10 +1,7 @@
-// Load required packages
-var mongoose = require('mongoose');
-
-// Define our user schema
-var UserSchema = new mongoose.Schema({
-    name: String
-});
-
-// Export the Mongoose model
-module.exports = mongoose.model('User', UserSchema);
+const mongoose = require('mongoose');
+const schema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    pendingTasks: { type: [String], default: [] }
+}, { timestamps: { createdAt: 'dateCreated', updatedAt: false }, versionKey: false });
+module.exports = mongoose.model('User', schema);

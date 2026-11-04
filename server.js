@@ -48,6 +48,11 @@ app.get('/healthz', async function (req, res) {
 // Use routes as a module (see index.js)
 require('./routes')(app, router);
 
+app.use(function (req, res) {
+    res.status(404).json({ message: 'Endpoint not found', data: null });
+});
+app.use(require('./lib/errors').errorHandler);
+
 // Start the server
 app.listen(port);
 console.log('Server running on port ' + port);
