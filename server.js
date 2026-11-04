@@ -12,8 +12,12 @@ var app = express();
 // Use environment defined port or 3000
 var port = process.env.PORT || 3000;
 
-// Connect to a MongoDB --> Uncomment this once you have a connection string!!
-//mongoose.connect(process.env.MONGODB_URI).catch(function (err) { console.error('MongoDB connection error:', err.message); });
+// Connect to MongoDB without exposing connection credentials in logs.
+mongoose.connect(process.env.MONGODB_URI).then(function () {
+    console.log('MongoDB connected successfully');
+}).catch(function () {
+    console.error('MongoDB connection failed. Check the database credentials and network access settings.');
+});
 
 // Allow CORS so that backend and frontend could be put on different servers
 var allowCrossDomain = function (req, res, next) {
@@ -27,6 +31,19 @@ app.use(allowCrossDomain);
 // Parse URL-encoded and JSON request bodies
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Check the database connection without exposing configuration or credentials.
+app.get('/healthz', async function (req, res) {
+    try {
+        if (mongoose.connection.readyState !== 1) {
+            return res.status(503).json({ message: 'Database unavailable', data: null });
+        }
+        await mongoose.connection.db.admin().ping();
+        res.status(200).json({ message: 'OK', data: { database: 'connected', nodeVersion: process.versions.node } });
+    } catch (err) {
+        res.status(503).json({ message: 'Database unavailable', data: null });
+    }
+});
 
 // Use routes as a module (see index.js)
 require('./routes')(app, router);
