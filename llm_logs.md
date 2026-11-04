@@ -1060,3 +1060,15 @@ A full self-check score does not mean the assignment has been submitted. The for
 ---
 
 End of the requested translated conversation range.
+
+## Reference sources and LLM disclosure
+
+This reference list is an editorial appendix added for submission; it is not an additional conversation turn.
+
+- [Assignment README](README.md): API requirements, schemas, reference consistency rules, grading, deployment, submission, and LLM usage policy.
+- [Assignment FAQ](FAQ.md): clarifications about validation, status codes, PUT behavior, queries, and reference updates.
+- Course lecture slides, `15_devlab_mp3_25.pdf`, supplied by the student: Atlas and Express setup, Render environment variables, routing, schema validation, transactions, query builders, and LLM log requirements. The supplied PDF is not included in this repository.
+- [MongoDB Atlas account management](https://www.mongodb.com/docs/atlas/security/manage-your-mongodb-atlas-account/): account and organization ownership guidance.
+- [MongoDB Atlas user roles](https://www.mongodb.com/docs/atlas/reference/user-roles/): Organization Owner and Project Owner permissions.
+- [MongoDB Atlas organization user management](https://www.mongodb.com/docs/atlas/access/manage-org-users/): membership and owner-management rules.
+- OpenAI Codex: generated the implementation, tests, deployment changes, and explanations recorded in this conversation. This file is the English translation of that interaction within the stated cutoff.
